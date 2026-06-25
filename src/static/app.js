@@ -4,32 +4,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
-  function formatParticipantsList(activityName, participants) {
-    if (!participants || participants.length === 0) {
-      return '<p class="participants-empty">No participants yet</p>';
-    }
-
-    const participantItems = participants
-      .map(
-        (participant) => `
-          <li class="participant-item">
-            <span class="participant-email">${participant}</span>
-            <button
-              type="button"
-              class="participant-delete"
-              data-activity="${activityName}"
-              data-email="${participant}"
-              aria-label="Remove ${participant} from ${activityName}"
-              title="Unregister participant"
-            >
-              &times;
-            </button>
-          </li>
-        `
-      )
-      .join("");
-
-    return `<ul class="participants-list">${participantItems}</ul>`;
+  function formatParticipantItem(activityName, participant) {
+    return `
+      <li class="participant-item">
+        <span class="participant-email">${participant}</span>
+        <button
+          type="button"
+          class="participant-delete"
+          data-activity="${activityName}"
+          data-email="${participant}"
+          aria-label="Remove ${participant} from ${activityName}"
+          title="Unregister participant"
+        >
+          &times;
+        </button>
+      </li>
+    `;
   }
 
   // Function to fetch activities from API
@@ -53,6 +43,13 @@ document.addEventListener("DOMContentLoaded", () => {
         activityCard.className = "activity-card";
 
         const spotsLeft = details.max_participants - details.participants.length;
+        const participantsSection = details.participants.length
+          ? `
+            <ul class="participants-list">
+              ${details.participants.map((participant) => formatParticipantItem(name, participant)).join("")}
+            </ul>
+          `
+          : '<p class="participants-empty">No participants yet</p>';
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
@@ -61,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
           <div class="participants-section">
             <p class="participants-title"><strong>Participants</strong></p>
-            ${formatParticipantsList(name, details.participants)}
+            ${participantsSection}
           </div>
         `;
 
