@@ -38,42 +38,6 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
-    },
-    "Basketball": {
-        "description": "Team sport focusing on basketball skills and competitive play",
-        "schedule": "Tuesdays and Thursdays, 4:00 PM - 5:30 PM",
-        "max_participants": 15,
-        "participants": ["alex@mergington.edu"]
-    },
-    "Tennis Club": {
-        "description": "Learn and practice tennis on the school courts",
-        "schedule": "Wednesdays and Saturdays, 3:00 PM - 4:30 PM",
-        "max_participants": 10,
-        "participants": ["james@mergington.edu", "isabella@mergington.edu"]
-    },
-    "Art Club": {
-        "description": "Explore painting, drawing, and various artistic mediums",
-        "schedule": "Mondays and Wednesdays, 3:30 PM - 5:00 PM",
-        "max_participants": 18,
-        "participants": ["sarah@mergington.edu", "lucas@mergington.edu"]
-    },
-    "Music Ensemble": {
-        "description": "Join our orchestra and band to perform classical and modern pieces",
-        "schedule": "Thursdays, 4:00 PM - 5:30 PM",
-        "max_participants": 25,
-        "participants": ["noah@mergington.edu"]
-    },
-    "Debate Team": {
-        "description": "Develop argumentation and public speaking skills through competitive debates",
-        "schedule": "Mondays and Fridays, 3:45 PM - 5:00 PM",
-        "max_participants": 16,
-        "participants": ["grace@mergington.edu", "ethan@mergington.edu"]
-    },
-    "Science Club": {
-        "description": "Conduct experiments and explore various scientific disciplines",
-        "schedule": "Tuesdays, 3:30 PM - 5:00 PM",
-        "max_participants": 22,
-        "participants": ["mia@mergington.edu", "lucas@mergington.edu"]
     }
 }
 
@@ -97,10 +61,6 @@ def signup_for_activity(activity_name: str, email: str):
 
     # Get the specific activity
     activity = activities[activity_name]
-
-    # Validate student is not already signed up
-    if email in activity["participants"]:
-        raise HTTPException(status_code=400, detail="Student already signed up for this activity")      
 
     # Add student
     activity["participants"].append(email)
